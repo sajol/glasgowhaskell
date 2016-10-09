@@ -10,4 +10,19 @@ treeSum :: Tree -> Int
 treeSum Leaf = 0
 treeSum (Node payload left right) = payload + treeSum left + treeSum right
 
+{-isSorted (Node 2 (Node 1 Leaf Leaf) (Node 3 Leaf Leaf)) 0 1000-}
+isSorted :: Tree -> Int -> Int -> Bool
+isSorted Leaf _ _ = True
+isSorted (Node value left right) min max =
+    let
+        isLeftSorted = isSorted left min value
+        isRightSorted = isSorted right value max
+    in
+       value >= min && value <= max && isLeftSorted && isRightSorted
 
+
+
+addNewMax :: Tree -> Tree
+addNewMax Leaf = Node 0 Leaf Leaf
+addNewMax (Node value left Leaf) = Node value left (Node (value +1) Leaf Leaf)
+addNewMax (Node value left right) = Node value left (addNewMax right)
