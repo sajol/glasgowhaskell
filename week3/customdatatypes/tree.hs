@@ -26,3 +26,11 @@ addNewMax :: Tree -> Tree
 addNewMax Leaf = Node 0 Leaf Leaf
 addNewMax (Node value left Leaf) = Node value left (Node (value +1) Leaf Leaf)
 addNewMax (Node value left right) = Node value left (addNewMax right)
+
+
+tree = (Node 2 (Node 1 Leaf Leaf) (Node 3 Leaf Leaf))
+
+dfs :: Tree -> [Int]
+dfs Leaf = []
+dfs (Node value left right) = value : dfs left ++ dfs right
+
