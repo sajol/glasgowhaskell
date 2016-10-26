@@ -28,7 +28,7 @@ addNewMax (Node value left Leaf) = Node value left (Node (value +1) Leaf Leaf)
 addNewMax (Node value left right) = Node value left (addNewMax right)
 
 
-tree = (Node 2 (Node 1 Leaf Leaf) (Node 3 Leaf Leaf))
+tree = (Node 3 (Node 2 (Node 1 Leaf Leaf) Leaf) (Node 4 Leaf Leaf))
 
 traversePreOrder :: Tree -> [Int]
 traversePreOrder Leaf = []
@@ -47,3 +47,18 @@ dfs :: Tree -> [Int]
 dfs Leaf = []
 dfs (Node value left right) = [value] ++ dfs left ++ dfs right
 
+bfs :: Tree -> [Int]
+bfs Leaf = []
+bfs node = traverse [node]
+
+traverse :: [Tree] -> [Int]
+traverse [] = []
+traverse nodes = map (\(Node value _ _) -> value) nodes ++ traverse (concat (map getChildNodes nodes))
+
+getChildNodes :: Tree -> [Tree]
+getChildNodes node =
+    case node of
+        (Node _ Leaf Leaf) -> []
+        (Node _ left Leaf) -> [left]
+        (Node _ Leaf right) -> [right]
+        (Node _ left right) -> [left,right]
