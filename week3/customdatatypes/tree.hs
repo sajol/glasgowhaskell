@@ -43,13 +43,13 @@ traversePostOrder Leaf = []
 traversePostOrder (Node value left right) = traversePostOrder left ++ traversePostOrder right ++ [value]
 
 
-dfs :: Tree -> [Int]
-dfs Leaf = []
-dfs (Node value left right) = [value] ++ dfs left ++ dfs right
+df :: Tree -> [Int]
+df Leaf = []
+df (Node value left right) = [value] ++ df left ++ df right
 
-bfs :: Tree -> [Int]
-bfs Leaf = []
-bfs node = traverse [node]
+bf :: Tree -> [Int]
+bf Leaf = []
+bf node = traverse [node]
 
 traverse :: [Tree] -> [Int]
 traverse [] = []
