@@ -33,4 +33,33 @@ bardo xs = do
     myHead b
 
 
+myList :: [a] -> Maybe [a]
+myList [] = Nothing
+myList a = Just a
 
+headOfMyList :: [a] -> Maybe a
+headOfMyList [] = Nothing
+headOfMyList (x:xs) = Just x
+
+tailOfMyList :: [a] -> Maybe [a]
+tailOfMyList [] = Nothing
+tailOfMyList (x:xs) = Just xs
+
+
+incrementBy :: Int -> Int -> Int
+incrementBy n number = n + number
+
+incrementListByOne :: [Int] -> Maybe [Int]
+incrementListByOne [] = Nothing
+incrementListByOne xs = Just (map (\number -> (incrementBy 1 number)) xs)
+
+
+getHeadOfMyIncrementedList xs | xs == [] = Nothing
+                              | otherwise = myList xs >>= incrementListByOne >>= headOfMyList
+
+
+getTailOfMyIncrementedList xs | xs == [] = Nothing
+                              | otherwise = myList xs >>= incrementListByOne >>= tailOfMyList
+
+--getTailOfMyIncrementedList [1,2,3]             Just [3,4]
+--getHeadOfMyIncrementedList [10,2,3,4,5]        Just 11
