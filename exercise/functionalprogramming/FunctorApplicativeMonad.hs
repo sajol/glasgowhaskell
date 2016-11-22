@@ -1,5 +1,6 @@
 
 import Safe (readMay)
+import Control.Applicative ((<$>), (<*>))
 
 notSafe = do
     putStrLn "Enter your birth year : "
@@ -21,7 +22,7 @@ safe = do
 displayAge mayBeAge = do
     case mayBeAge of
         Nothing -> putStrLn "You have provided an invalid year"
-        Just year -> putStrLn $ "In 2020, your age will be  : " ++ show (year)
+        Just year -> putStrLn $ "In that year, your age will be  : " ++ show (year)
 
 
 yearToAge year = 2020 - year
@@ -61,7 +62,7 @@ betterWithDoNotation = do
 dynamicAgeCalculator = do
     putStrLn "Enter your birth year : "
     year <- getLine
-    putStrLn "Enter future year : "
+    putStrLn "Enter a future year : "
     futureYear <- getLine
 
     let mayBeAge = case readMay year of
@@ -79,9 +80,8 @@ yearDiff futureYear birthYear = futureYear - birthYear
 dynamicAgeCalculatorWithDoNotation = do
     putStrLn "Enter your birth year : "
     birthYear <- getLine
-    putStrLn "Enter future year : "
+    putStrLn "Enter a future year : "
     futureYear <- getLine
-
     let mayBeAge = do
         birthYear <- readMay birthYear
         futureYear <- readMay futureYear
@@ -95,12 +95,52 @@ dynamicAgeCalculatorWithDoNotation = do
 dynamicAgeCalculatorWithDoNotationFunctor = do
     putStrLn "Enter your birth year : "
     birthYear <- getLine
-    putStrLn "Enter future year : "
+    putStrLn "Enter a future year : "
     futureYear <- getLine
-
     let mayBeAge = do
         yearToAge <- fmap yearDiff $ readMay futureYear
         birthYear <- readMay birthYear
         return $ yearToAge birthYear
 
+    displayAge mayBeAge
+
+
+
+--applicative functor
+--to be able to apply function which is inside a functor to a value inside a functor
+ageCalculatorWithApplicativeFunctor = do
+    putStrLn "Enter your birth year : "
+    birthYear <- getLine
+    putStrLn "Enter a future year : "
+    futureYear <- getLine
+    let mayBeAge =
+            fmap yearDiff (readMay futureYear)
+            <*> readMay birthYear
+    displayAge mayBeAge
+
+ageCalculatorWithApplicativeFunctor1 = do
+    putStrLn "Enter your birth year : "
+    birthYear <- getLine
+    putStrLn "Enter a future year : "
+    futureYear <- getLine
+    let mayBeAge = yearDiff
+            <$> (readMay futureYear)
+            <*> readMay birthYear
+    displayAge mayBeAge
+
+
+--monad : context sensitivity; make decision on which processing path to follow based on previous result.
+
+conditionalAgeCalculator = do
+    putStrLn "Enter your birth year : "
+    birthYear <- getLine
+    putStrLn "Enter a future year : "
+    futureYear <- getLine
+    let mayBeAge = do
+        futureYear <- readMay futureYear
+        birthYear <- readMay birthYear
+        return $
+            if futureYear < birthYear
+                then yearDiff birthYear futureYear
+                else yearDiff futureYear birthYear
     displayAge mayBeAge
