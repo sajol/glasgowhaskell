@@ -2,6 +2,9 @@
 import Safe (readMay)
 import Control.Applicative ((<$>), (<*>))
 
+
+--source https://www.schoolofhaskell.com/school/advanced-haskell/functors-applicative-functors-and-monads
+
 notSafe = do
     putStrLn "Enter your birth year : "
     year <- getLine
