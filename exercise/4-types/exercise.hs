@@ -29,4 +29,17 @@ j = g ++ h ++ i
 
 
 
+--write type signature
+
+functionG (x : _) = x
+--functionG :: [a] -> a
+
+
+functionH (a,b) = b
+--functionH :: (t,t1) -> t1
+
+functionC a b = if a > b then True else False
+--functionC :: Ord a => a -> a -> Bool
+
+
 
