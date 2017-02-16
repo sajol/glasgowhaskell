@@ -35,3 +35,14 @@ fibonacci 0 = 0
 fibonacci 1 = 1
 fibonacci x = fibonacci (x - 1) + fibonacci (x - 2)
 
+
+
+--divide in terms of subtraction
+divideBy :: (Integral a) => a -> a -> (a,a)
+divideBy numerator denominator =
+    execute numerator denominator count
+        where
+            count = 0
+            execute n d c
+                | n < d = (c, n)
+                | otherwise = execute (n - d) d (c + 1)
