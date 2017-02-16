@@ -43,3 +43,23 @@ multiplyBy a b = execute 0 1
         execute result count
             | count > b = result
             | otherwise = execute (result + a) (count + 1)
+
+
+--fixing divided by
+
+data DividedResult = Result Integer | DividedByZero deriving Show
+
+dividedByImproved :: Integer -> Integer -> DividedResult
+dividedByImproved numerator denominator
+    | denominator == 0 = DividedByZero
+    | otherwise = execute (abs numerator) (abs denominator) 0
+    where
+        execute n d c
+            | n < d = Result (c * negativeFactor)
+            | otherwise = execute (n - d) d (c + 1)
+            where negativeFactor
+                      | factor == 0 = 0
+                      | factor > 0 = 1
+                      | otherwise = -1
+                      where
+                        factor = numerator * denominator
