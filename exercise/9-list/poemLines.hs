@@ -16,16 +16,25 @@ sentences = firstSen ++ secondSen
             ++ thirdSen ++ fourthSen
 
 
+{-
+Try writing a new function that parameterizes the character
+you’re breaking the string argument on and rewrite myWords and
+myLines using it.
+-}
+
+separate :: Char -> String -> [String]
+separate c s =
+    case takeWhile (/= c) dropInitialNewLine of
+            [] -> []
+            xs -> xs : myLines rest
+            where
+                dropInitialNewLine = dropWhile (== c) s
+                rest = dropWhile (/= c) dropInitialNewLine
 
 
 myLines :: String -> [String]
-myLines s =
-    case takeWhile (/= '\n') dropInitialNewLine of
-        [] -> []
-        xs -> xs : myLines rest
-        where
-            dropInitialNewLine = dropWhile (== '\n') s
-            rest = dropWhile (/= '\n') dropInitialNewLine
+myLines s = separate '\n' s
+
 
 
 
