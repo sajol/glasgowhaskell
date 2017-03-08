@@ -29,3 +29,13 @@ myFoldr f acc (x : xs) = f x (myFoldr f acc xs)
 myFoldl :: (b -> a -> b) -> b -> [a] -> b
 myFoldl f acc [] = acc
 myFoldl f acc (x : xs) = myFoldl f (f acc x) xs
+
+
+
+--write a function to take the first three letters of
+--each String value in a list of strings and concatenate that result into
+--a final String.
+
+take3FromEachAndCombine :: [String] -> String
+take3FromEachAndCombine xs = foldr (\a b -> take 3 a ++ b) "" xs
+
