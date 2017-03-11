@@ -72,9 +72,12 @@ myMaximumBy f (x : xs) = foldr f' x xs
         f' a b = compareBy GT f a b
 
 
+
 compareBy :: Ordering -> (a -> a -> Ordering) -> a -> a -> a
 compareBy o f a b | f a b == o = a
                   | otherwise = b
+
+
 --11
 myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
 myMinimumBy _ [] = undefined
