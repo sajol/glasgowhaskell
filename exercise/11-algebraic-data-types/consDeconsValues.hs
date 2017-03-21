@@ -182,3 +182,32 @@ allLanguages = [Haskell, Agda, Idris, PureScript]
 allProgrammers :: [Programmer]
 allProgrammers = [Programmer os lang | os <- allOperatingSystems, lang <- allLanguages]
 
+
+--partial application of data constructor
+data ThereYet =
+    There Integer Float String Bool
+    deriving (Eq, Show)
+
+
+--who need a "builder pattern"?
+
+nope :: Float -> String -> Bool -> ThereYet
+nope = There 10
+
+notYet :: String -> Bool -> ThereYet
+notYet = nope 25.5
+
+notQuite :: Bool -> ThereYet
+notQuite = notYet "woohoo"
+
+yussss :: ThereYet
+yussss = notQuite False
+
+--type progession
+--There    :: Integer -> Float -> String -> Bool -> ThereYet
+--nope     ::            Float -> String -> Bool -> ThereYet
+--notYet   ::                     String -> Bool -> ThereYet
+--notQuite ::                               Bool -> ThereYet
+--yussss   ::                                       ThereYet
+
+
