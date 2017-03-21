@@ -211,3 +211,48 @@ yussss = notQuite False
 --yussss   ::                                       ThereYet
 
 
+
+
+--Deconstructing values
+newtype Nam = Name String deriving Show
+newtype Acres = Acres Int deriving Show
+
+--Farmer Type is a sum
+data FarmerType = DairyFarmer
+                | WheatFarmer
+                | SoyabeanFarmer
+                deriving Show
+
+--Farmer is a plain ole product of
+--Name,Acres, and FarmerType
+data Farmer = Farmer Nam Acres FarmerType deriving Show
+
+isDairyFarmer :: Farmer -> Bool
+isDairyFarmer (Farmer _ _ DairyFarmer) = True
+isDairyFarmer _ = False
+
+data FarmerRec =
+    FarmerRec {
+        name :: Nam,
+        acres :: Acres,
+        farmerType :: FarmerType
+    }deriving Show
+
+isDairyFarmerRec :: FarmerRec -> Bool
+isDairyFarmerRec farmer =
+    case farmerType farmer of
+        DairyFarmer -> True
+        _           -> False
+
+
+
+
+--Dang it, more accidental bottoms from records
+data Car =
+    Car{
+        make :: String,
+        model :: String,
+        year :: Integer
+    }deriving (Eq, Show)
+
+data Automobile = Null | Automobile Car deriving(Eq, Show)
