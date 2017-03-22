@@ -8,4 +8,8 @@ nil' = []
 
 oneItem = Cons "woohoo!" Nil
 
-oneItem' = ["woohoo"]
+oneItem' = "woohoo" : []
+
+twoItems = Cons "woohoo" (Cons "woohooo" Nil)
+
+twoItems' = "woohoo" : "woohooo" : []
