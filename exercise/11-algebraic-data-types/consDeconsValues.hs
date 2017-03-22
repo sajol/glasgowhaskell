@@ -256,3 +256,35 @@ data Car =
     }deriving (Eq, Show)
 
 data Automobile = Null | Automobile Car deriving(Eq, Show)
+
+
+--intemission : exercise
+--Determine how many unique inhabitants each type has.
+
+data Quad = One
+          | Two
+          | Three
+          | Four
+          deriving (Eq, Show)
+
+--1.how many different forms can this take?
+eQuad :: Either Quad Quad
+eQuad = undefined
+
+--Either is a sum type. Quad has cardinality of 4
+--So 4 + 4 = 8
+
+--2. prodQuad :: (Quad, Quad)
+--product type. so, 4 * 4 = 16
+
+--3.funcQuad :: Quad -> Quad
+--function type is exponential. so, 4^4 = 256
+
+--4.prodTBool :: (Bool, Bool, Bool)
+--2 * 2 * 2 = 8
+
+--5.gTwo :: Bool -> Bool -> Bool
+-- (2^2)^2 = 16
+
+--6.fTwo :: Bool -> Quad -> Quad
+-- (4^4)^2
