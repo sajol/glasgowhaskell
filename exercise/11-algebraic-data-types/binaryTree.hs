@@ -37,3 +37,43 @@ mapOkay =
     if mapTree (+1) testTree == mapExpected
     then print "yup okay!"
     else error "test failed"
+
+
+preOrder :: BinaryTree a -> [a]
+preOrder Leaf = []
+preOrder (Node left a right) = a : (preOrder left ++ preOrder right)
+
+
+inOrder :: BinaryTree a -> [a]
+inOrder Leaf = []
+inOrder (Node left a right) = inOrder left ++ [a] ++ inOrder right
+
+
+postOrder :: BinaryTree a -> [a]
+postOrder Leaf = []
+postOrder (Node left a right) = postOrder left ++ postOrder right ++ [a]
+
+
+testTree' :: BinaryTree Integer
+testTree' = Node (Node Leaf 1 Leaf) 2 (Node Leaf 3 Leaf)
+
+
+testPreOrder :: IO ()
+testPreOrder =
+    if preOrder testTree' == [2, 1, 3]
+    then putStrLn "Preorder fine!"
+    else putStrLn "Bad news bears."
+
+
+testInOrder :: IO ()
+testInOrder =
+    if inOrder testTree' == [1, 2, 3]
+    then putStrLn "Inorder fine!"
+    else putStrLn "Bad news bears."
+
+
+testPostOrder :: IO ()
+testPostOrder =
+    if postOrder testTree' == [1, 3, 2]
+    then putStrLn "Postorder fine!"
+    else putStrLn "Bad news bears."
